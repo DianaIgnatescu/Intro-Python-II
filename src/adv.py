@@ -64,3 +64,8 @@ while True:
 
     # Prints the current description (the textwrap module might be useful here).
     print(player.current_room.description)
+
+    # Waits for user input and decides what to do.
+    print("You can move in a specific direction or you can type 'quit' to end your journey.")
+    choice = input("\n>").lower()[0].split()
+
