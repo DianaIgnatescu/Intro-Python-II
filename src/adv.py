@@ -43,6 +43,19 @@ room['treasure'].s_to = room['narrow']
 player = Player(room['outside'])
 
 
+def move(direction, current_room):
+    attribute = direction + "_to"
+
+    # Check if the selected direction is possible
+    if hasattr(current_room, attribute):
+        return getattr(current_room, attribute)
+
+    # Print an error message if the movement isn't allowed.
+    else:
+        print("There is nothing for you there!")
+        return current_room
+
+
 # Write a loop that:
 #
 # * Prints the current room name
