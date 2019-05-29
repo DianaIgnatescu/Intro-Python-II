@@ -69,3 +69,20 @@ while True:
     print("You can move in a specific direction or you can type 'quit' to end your journey.")
     choice = input("\n>").lower()[0].split()
 
+    if len(choice) == 1:
+        # Set the user input as the direction command
+        choice = choice[0]
+
+        # If the user enters a cardinal direction, attempt to move to the room there.
+        player.current_room = move(choice, player.current_room)
+
+    elif len(choice) == 2:
+        # If the user input contains two words, set the first as the direction command
+        first_word = choice[0]
+        second_word = choice[1]
+
+    # Print an error message if the command is invalid.
+    else:
+        print("Please choose a valid command.")
+        continue
+
