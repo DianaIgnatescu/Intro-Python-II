@@ -73,6 +73,11 @@ while True:
         # Set the user input as the direction command
         choice = choice[0]
 
+        # If the user enters "quit", quit the game.
+        if choice == "quit":
+            print("Your journey has come to an end. See you next time!")
+            break
+
         # If the user enters a cardinal direction, attempt to move to the room there.
         player.current_room = move(choice, player.current_room)
 
