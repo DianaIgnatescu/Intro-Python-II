@@ -11,7 +11,16 @@ class Item:
         return f"{self.name}, {self.description}"
 
     def on_take(self):
-        print(f"{self.name.upper()} has been added to your inventory.")
+        if self.name.lower() == "crown":
+            print(
+                """You pick up the rusty crown in disappointment only to reveal an ancient mechanism under it that opens a secret passage in the wall. You step inside and can't believe your eyes! Mountains of gold and precious gems stand before you!
+
+            ===================================
+            =            YOU WIN!             =
+            ===================================
+            """)
+        else:
+            print(f"\n{self.name.upper()} has been added to your inventory.\n")
 
     def on_drop(self):
-        print(f"{self.name} was dropped from your inventory.")
+        print(f"\n{self.name.upper()} was dropped from your inventory.\n")

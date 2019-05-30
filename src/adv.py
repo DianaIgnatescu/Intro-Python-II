@@ -70,6 +70,10 @@ print("\nThree days you've spent crossing the Haunted Forest. Yet, your adventur
 # Write a loop that:
 
 while True:
+
+    items = [item.name.lower() for item in player.current_room.items if len(player.current_room.items) > 0]
+    inventory = [item.name.lower() for item in player.inventory if len(player.inventory) > 0]
+
     # Prints the current room name
     print(f"Your now find yourself in the {player.current_room.name}.")
 
@@ -99,6 +103,9 @@ while True:
             print("\nYou bravely move East.\n")
         elif choice == "w":
             print("\nYou bravely move West.\n")
+        elif choice == "i":
+            player.display_inventory()
+            continue
         # If the user enters "quit", quit the game.
         elif choice == "q":
             print("\nYour journey has come to an end. See you next time!")
@@ -114,9 +121,29 @@ while True:
         first_word = choice[0].lower()
         second_word = choice[1].lower()
 
+        if first_word == "take" or first_word == "get":
+            if second_word in items:
+                # Checks for the current position of the second word
+                item = player.current_room.items.pop(items.index(second_word))
+                # Adds item to inventory
+                player.inventory.append(item)
+                item.on_take()
+            else:
+                print("There is no item with that name in the room.\n")
+
+        elif first_word == "drop":
+            if second_word in inventory:
+                # Checks for the current position of the second word
+                item = player.inventory.pop(inventory.index(second_word))
+                # Adds item to inventory
+                player.current_room.items.append(item)
+                item.on_drop()
+            else:
+                print("There is no item with that name in your inventory.\n")
 
     # Print an error message if the command is invalid.
     else:
         print("Please choose a valid command.")
         continue
+
 
