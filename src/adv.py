@@ -22,7 +22,6 @@ chamber! Sadly, it has already been completely emptied by
 earlier adventurers. The only exit is to the south."""),
 }
 
-
 # Link rooms together
 
 room['outside'].n_to = room['foyer']
@@ -34,13 +33,14 @@ room['narrow'].w_to = room['foyer']
 room['narrow'].n_to = room['treasure']
 room['treasure'].s_to = room['narrow']
 
+
 #
 # Main
 #
 
 # Make a new player object that is currently in the 'outside' room.
 
-player = Player("Lulu", room['outside'])
+player = Player("Hugo", room['outside'])
 
 
 def move(direction, current_room):
@@ -52,31 +52,47 @@ def move(direction, current_room):
 
     # Print an error message if the movement isn't allowed.
     else:
-        print("There is nothing for you there!")
+        print("There is nothing for you there! Try moving in a different direction.")
         return current_room
 
+
+print("\n\t======================")
+print(f"\t=  {player.name}'s adventure  =")
+print("\t======================")
+print("\nThree days you've spent crossing the Haunted Forest. Yet, your adventure continues.\n")
 
 # Write a loop that:
 
 while True:
     # Prints the current room name
-    print(player.current_room.name)
+    print(f"Your now find yourself in the {player.current_room.name}.")
 
     # Prints the current description (the textwrap module might be useful here).
-    print(player.current_room.description)
+    print(f"{player.current_room.description}.\n")
+
 
     # Waits for user input and decides what to do.
     print("You can move in a specific direction or you can type 'quit' to end your journey.")
-    choice = input("\n>").lower()[0].split()
+    choice = input("\n> ").lower().split()
 
     if len(choice) == 1:
         # Set the user input as the direction command
         choice = choice[0]
 
+        if choice == "n":
+            print("\nYou bravely move North.\n")
+        elif choice == "s":
+            print("\nYou bravely move South.\n")
+        elif choice == "e":
+            print("\nYou bravely move East.\n")
+        elif choice == "w":
+            print("\nYou bravely move West.\n")
         # If the user enters "quit", quit the game.
-        if choice == "quit":
-            print("Your journey has come to an end. See you next time!")
+        elif choice == "q":
+            print("\nYour journey has come to an end. See you next time!")
             break
+        else:
+            print("\nPlease choose n, s, e, w to change direction or or q to quit.\n")
 
         # If the user enters a cardinal direction, attempt to move to the room there.
         player.current_room = move(choice, player.current_room)
