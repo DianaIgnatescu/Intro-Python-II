@@ -1,25 +1,31 @@
 from room import Room
 from player import Player
+from item import Item
 
 # Declare all the rooms
 
 room = {
     'outside':  Room("Outside Cave Entrance",
-                     "North of you, the cave mount beckons"),
+                     "North of you, the cave mount beckons",
+                     [Item('Honey', "Just in case you come across a bear.")]),
 
     'foyer':    Room("Foyer", """Dim light filters in from the south. Dusty
-passages run north and east."""),
+passages run north and east.""",
+                     [Item('Trumpet', "Both a weapon AND a musical instrument.")]),
 
     'overlook': Room("Grand Overlook", """A steep cliff appears before you, falling
 into the darkness. Ahead to the north, a light flickers in
-the distance, but there is no way across the chasm."""),
+the distance, but there is no way across the chasm.""",
+                     [Item('Potion', "Suspicious contents in an unmarked bottle. What could go wrong?")]),
 
     'narrow':   Room("Narrow Passage", """The narrow passage bends here from west
-to north. The smell of gold permeates the air."""),
+to north. The smell of gold permeates the air.""",
+                     [Item('Lantern', "This will help you ward off the rats")]),
 
     'treasure': Room("Treasure Chamber", """You've found the long-lost treasure
 chamber! Sadly, it has already been completely emptied by
-earlier adventurers. The only exit is to the south."""),
+earlier adventurers. The only exit is to the south.""",
+                     [Item('Crown', "What's a ruler without a crown?")]),
 }
 
 # Link rooms together
@@ -70,6 +76,12 @@ while True:
     # Prints the current description (the textwrap module might be useful here).
     print(f"{player.current_room.description}.\n")
 
+    # Print the item in the room if there is any.
+
+    if len(player.current_room.items) > 0:
+        print(f"You spot the following items: ")
+        for item in player.current_room.items:
+            print(f"- {item.name}. {item.description}\n")
 
     # Waits for user input and decides what to do.
     print("You can move in a specific direction or you can type 'quit' to end your journey.")
@@ -98,9 +110,10 @@ while True:
         player.current_room = move(choice, player.current_room)
 
     elif len(choice) == 2:
-        # If the user input contains two words, set the first as the direction command
-        first_word = choice[0]
-        second_word = choice[1]
+        # If the user input contains two words
+        first_word = choice[0].lower()
+        second_word = choice[1].lower()
+
 
     # Print an error message if the command is invalid.
     else:
