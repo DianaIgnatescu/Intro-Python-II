@@ -19,6 +19,7 @@ class Item:
             =            YOU WIN!             =
             ===================================
             """)
+            exit(0)
         else:
             print(f"\n{self.name.upper()} has been added to your inventory.\n")
 
